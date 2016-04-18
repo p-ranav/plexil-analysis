@@ -469,7 +469,7 @@
         <token x="-36.800000"
                y="31.536000"/>
         <marking x="-23.500000"
-                 y="25.000000"
+                 y="23.000000"
                  hidden="false">
           <snap snap_id="0"
                 anchor.horizontal="1"
@@ -1301,7 +1301,7 @@ vl)</text>
         <bendpoint id="ID1412486373"
                    serial="1">
           <posattr x="-179.000000"
-                   y="186.000000"/>
+                   y="168.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1326,7 +1326,7 @@ vl)</text>
         </bendpoint>
         <annot id="ID1412486372">
           <posattr x="-160.000000"
-                   y="262.000000"/>
+                   y="251.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1359,7 +1359,7 @@ vl)</text>
         <bendpoint id="ID1412493809"
                    serial="1">
           <posattr x="-178.000000"
-                   y="185.000000"/>
+                   y="168.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1815,6 +1815,20 @@ val max_iat = 10;
         <label/>
         <text>(Real.floor (uniform((Real.fromInt 50), (Real.fromInt 90))))</text>
       </Aux>
+      <Aux id="ID1412885791">
+        <posattr x="-84.000000"
+                 y="864.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <label/>
+        <text>(Real.floor (uniform((Real.fromInt 50), (Real.fromInt 90))))</text>
+      </Aux>
     </page>
     <instances>
       <instance id="ID2149"
@@ -2094,14 +2108,14 @@ val max_iat = 10;
     </options>
     <binders>
       <cpnbinder id="ID1412333388"
-                 x="77"
-                 y="98"
+                 x="204"
+                 y="57"
                  width="1610"
                  height="986">
         <sheets>
           <cpnsheet id="ID1412333377"
-                    panx="-152.320000"
-                    pany="446.464000"
+                    panx="6.680000"
+                    pany="542.464000"
                     zoom="1.000000"
                     instance="ID2149">
             <zorder>
@@ -2205,7 +2219,7 @@ val max_iat = 10;
           <IndexNode expanded="false"/>
           <IndexNode expanded="false"/>
           <IndexNode expanded="false"/>
-          <IndexNode expanded="false"/>
+          <IndexNode expanded="true"/>
           <IndexNode expanded="false"/>
           <IndexNode expanded="true"/>
         </IndexNode>

@@ -51,7 +51,7 @@ fun ClockGuard clock =
     false;
 
 fun EventGuard clock {name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, firing_time=firing_time} = 
-	if (clock < firing_time) then
+	if (clock <= firing_time) then
 		true
 	else
 		false;	
@@ -80,7 +80,11 @@ fun EarliestEvent [{name=name, min_iat=min_iat, max_iat=max_iat, updates=updates
   (EarliestEvent ({name=name2, min_iat=min_iat2, max_iat=max_iat2, updates=updates2, firing_time=firing_time2}::other_events));
 
 (* Update by shortest time *)
-fun UpdateClockOnEvent clock events = (EarliestEvent events);
+fun UpdateClockOnEvent clock events = 
+    if (clock < (EarliestEvent events)) then 
+      (EarliestEvent events)
+    else
+      clock;
 
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
