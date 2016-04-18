@@ -111,7 +111,7 @@ fun UpdateEventList clock earliest_event [] = []
 
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
-(* UPDATING VARIABLE LIST WHEN EVENT FIRES *)
+(* UPDATING ENVIRONMENT VARIABLE LIST WHEN EVENT FIRES *)
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
 fun UpdateThisVariable {name=var_name, value=var_value} [] = []
@@ -179,18 +179,31 @@ fun FindPlexilNode node_name ({name=name, node_type=node_type,
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
 fun CanExecute {name=name, node_type=node_type, 
-    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome} = 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+               clock event_queue local_variables environment_variables = 
 
   case name of
    "SimpleAssignment" => true
     | _ => false;
 
-fun CanExecuteAtleastOne [] = false
-  | CanExecuteAtleastOne (first_node::other_nodes) = 
-        if (CanExecute first_node) then 
+fun CanExecuteAtleastOne [] clock 
+                  event_queue local_variables environment_variables = false
+  | CanExecuteAtleastOne (first_node::other_nodes) clock 
+              event_queue local_variables environment_variables = 
+        if (CanExecute first_node 
+                clock event_queue local_variables environment_variables) then 
             true
         else 
-            false orelse (CanExecuteAtleastOne other_nodes);
+            false orelse (CanExecuteAtleastOne 
+                          other_nodes clock 
+                          event_queue local_variables environment_variables);
+
+(*--------------------------------------------------------------------*)
+(*--------------------------------------------------------------------*)
+(* Execute a single PLEXIL node *) 
+(* Return the plexil node with all its post-conditions satisfied *)
+(*--------------------------------------------------------------------*)
+(*--------------------------------------------------------------------*)
 
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
@@ -199,19 +212,38 @@ fun CanExecuteAtleastOne [] = false
 (*--------------------------------------------------------------------*)
 fun ExecuteGuard event_queue clock plexil_nodes local_variables environment_variables = 
     if  (event_queue != [] andalso 
-        (CanExecuteAtleastOne plexil_nodes))
+        (CanExecuteAtleastOne plexil_nodes clock event_queue local_variables environment_variables))
       then 
         true
       else
         false;
 
-fun GetAssignmentList [] = []
+fun GetAssignmentList [] clock event_queue local_variables environment_variables = []
   | GetAssignmentList ({name=name, node_type=node_type, 
     state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
-      ::other_nodes) = 
+      ::other_nodes) clock event_queue local_variables environment_variables = 
 
   if (CanExecute {name=name, node_type=node_type, 
-    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}) then 
-          assignments^^(GetAssignmentList other_nodes)
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+    clock event_queue local_variables environment_variables) then 
+          assignments^^(GetAssignmentList other_nodes clock event_queue local_variables environment_variables)
   else
-      (GetAssignmentList other_nodes);
+      (GetAssignmentList other_nodes clock event_queue local_variables environment_variables);      
+
+fun GetWCETThisCommand [] = 0
+   | GetWCETThisCommand ({name=name, WCET=WCET}::other_commands) = 
+        WCET + (GetWCETThisCommand other_commands);
+
+fun GetCommandsWCET [] clock event_queue local_variables environment_variables = 0
+  | GetCommandsWCET ({name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+      ::other_nodes) clock event_queue local_variables environment_variables = 
+  if (CanExecute {name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+    clock event_queue local_variables environment_variables) then 
+        (GetWCETThisCommand commands) + (GetCommandsWCET other_nodes clock event_queue local_variables environment_variables)
+  else
+    (GetCommandsWCET other_nodes clock event_queue local_variables environment_variables);
+
+fun UpdateClock plexil_nodes clock event_queue local_variables environment_variables = 
+  clock + (GetCommandsWCET plexil_nodes clock event_queue local_variables environment_variables);

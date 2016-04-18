@@ -542,8 +542,8 @@
                 version="4.0.1">plexil_nodes</text>
         </type>
         <initmark id="ID1412514573">
-          <posattr x="-710.180000"
-                   y="252.000000"/>
+          <posattr x="-952.000000"
+                   y="502.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -556,7 +556,7 @@
                 version="4.0.1">1`[{name=&quot;SimpleAssignment&quot;, node_type=&quot;Assignment&quot;, 
           state=&quot;INACTIVE&quot;, parent=&quot;NULL&quot;, 
           assignments=[{name=&quot;foo&quot;, new_value=&quot;3&quot;}], 
-          commands=[], outcome=&quot;&quot;}]</text>
+          commands=[{name=&quot;some_command&quot;, WCET=1}], outcome=&quot;&quot;}]</text>
         </initmark>
       </place>
       <place id="ID1412534559">
@@ -1044,7 +1044,7 @@
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412375033">
-          <posattr x="-246.000000"
+          <posattr x="-226.000000"
                    y="468.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1470,8 +1470,8 @@ vl)</text>
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412487389">
-          <posattr x="-252.000000"
-                   y="401.000000"/>
+          <posattr x="-242.500000"
+                   y="378.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1481,7 +1481,8 @@ vl)</text>
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.1">clock</text>
+                version="4.0.1">(UpdateClock pl 
+  clock el lv vl)</text>
         </annot>
       </arc>
       <arc id="ID1412488417"
@@ -1740,8 +1741,8 @@ vl)</text>
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412624090">
-          <posattr x="-219.000000"
-                   y="102.000000"/>
+          <posattr x="-123.000000"
+                   y="66.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1752,7 +1753,7 @@ vl)</text>
                     bold="false"/>
           <text tool="CPN Tools"
                 version="4.0.1">(UpdateTheseVariables 
-  (GetAssignmentList pl) lv)</text>
+  (GetAssignmentList pl clock el lv vl) lv)</text>
         </annot>
       </arc>
       <constraints/>
@@ -1795,21 +1796,6 @@ vl)</text>
           <text>&lt;same as model&gt;</text>
         </value>
       </option>
-      <option name="extensions.10008.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10003.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10007.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
       <option name="extensions.10005.enable">
         <value>
           <boolean>true</boolean>
@@ -1820,12 +1806,7 @@ vl)</text>
           <boolean>true</boolean>
         </value>
       </option>
-      <option name="extensions.10011.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10002.enable">
+      <option name="extensions.10007.enable">
         <value>
           <boolean>true</boolean>
         </value>
@@ -1835,7 +1816,27 @@ vl)</text>
           <boolean>true</boolean>
         </value>
       </option>
+      <option name="extensions.10003.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10002.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
       <option name="extensions.10001.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10008.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10011.enable">
         <value>
           <boolean>true</boolean>
         </value>
@@ -2048,14 +2049,14 @@ vl)</text>
     </options>
     <binders>
       <cpnbinder id="ID1412333388"
-                 x="212"
-                 y="6"
+                 x="125"
+                 y="-26"
                  width="1732"
                  height="1103">
         <sheets>
           <cpnsheet id="ID1412333377"
-                    panx="-205.320000"
-                    pany="380.464000"
+                    panx="-128.320000"
+                    pany="414.464000"
                     zoom="1.000000"
                     instance="ID2149">
             <zorder>
