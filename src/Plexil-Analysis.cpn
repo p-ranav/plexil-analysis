@@ -332,8 +332,8 @@
                 version="4.0.1">event_list</text>
         </type>
         <initmark id="ID1412337106">
-          <posattr x="24.000000"
-                   y="798.000000"/>
+          <posattr x="230.000000"
+                   y="749.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -345,7 +345,7 @@
           <text tool="CPN Tools"
                 version="4.0.1">1`[{name=&quot;Periodic_Check&quot;, min_iat=10, max_iat=10, updates=[], firing_time=0}, 
     {name=&quot;Target_Detected&quot;, min_iat=50, max_iat=90, 
-    updates=[{name=&quot;target_in_view&quot;, new_value=&quot;true&quot;}], firing_time=0}]</text>
+    updates=[{name=&quot;target_in_view&quot;, new_value=&quot;true&quot;}], firing_time=(Real.floor (uniform((Real.fromInt 50), (Real.fromInt 90))))}]</text>
         </initmark>
       </place>
       <place id="ID1412339122">
@@ -521,12 +521,12 @@
                  h="76.800000"/>
         <token x="-158.000000"
                y="0.000000"/>
-        <marking x="70.000000"
-                 y="-53.000000"
+        <marking x="-32.000000"
+                 y="155.000000"
                  hidden="false">
           <snap snap_id="0"
-                anchor.horizontal="3"
-                anchor.vertical="1"/>
+                anchor.horizontal="2"
+                anchor.vertical="3"/>
         </marking>
         <type id="ID1412514572">
           <posattr x="-180.500000"
@@ -641,6 +641,58 @@
                 version="4.0.1">1`[{name=&quot;drive_done&quot;, value=&quot;false&quot;}, {name=&quot;timeout&quot;, value=&quot;false&quot;}]</text>
         </initmark>
       </place>
+      <place id="ID1412881723">
+        <posattr x="-188.680000"
+                 y="1050.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <text>A</text>
+        <ellipse w="60.000000"
+                 h="40.000000"/>
+        <token x="-10.000000"
+               y="0.000000"/>
+        <marking x="0.000000"
+                 y="0.000000"
+                 hidden="false">
+          <snap snap_id="0"
+                anchor.horizontal="0"
+                anchor.vertical="0"/>
+        </marking>
+        <type id="ID1412881724">
+          <posattr x="-148.500000"
+                   y="1026.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="4.0.1">REAL</text>
+        </type>
+        <initmark id="ID1412881725">
+          <posattr x="-102.500000"
+                   y="1073.000000"/>
+          <fillattr colour="White"
+                    pattern="Solid"
+                    filled="false"/>
+          <lineattr colour="Black"
+                    thick="0"
+                    type="Solid"/>
+          <textattr colour="Black"
+                    bold="false"/>
+          <text tool="CPN Tools"
+                version="4.0.1">(uniform(5.0, 10.0))</text>
+        </initmark>
+      </place>
       <trans id="ID1412338273"
              explicit="false">
         <posattr x="0.000000"
@@ -703,80 +755,6 @@
         <priority id="ID1412433342">
           <posattr x="-107.000000"
                    y="411.464000"/>
-          <fillattr colour="White"
-                    pattern="Solid"
-                    filled="false"/>
-          <lineattr colour="Black"
-                    thick="0"
-                    type="Solid"/>
-          <textattr colour="Black"
-                    bold="false"/>
-          <text tool="CPN Tools"
-                version="4.0.1"/>
-        </priority>
-      </trans>
-      <trans id="ID1412382307"
-             explicit="false">
-        <posattr x="-369.680000"
-                 y="620.000000"/>
-        <fillattr colour="White"
-                  pattern=""
-                  filled="false"/>
-        <lineattr colour="Black"
-                  thick="1"
-                  type="solid"/>
-        <textattr colour="Black"
-                  bold="false"/>
-        <text>Update_Firing_Time</text>
-        <box w="142.000000"
-             h="70.000000"/>
-        <binding x="7.200000"
-                 y="-3.000000"/>
-        <cond id="ID1412382308">
-          <posattr x="-473.680000"
-                   y="669.000000"/>
-          <fillattr colour="White"
-                    pattern="Solid"
-                    filled="false"/>
-          <lineattr colour="Black"
-                    thick="0"
-                    type="Solid"/>
-          <textattr colour="Black"
-                    bold="false"/>
-          <text tool="CPN Tools"
-                version="4.0.1">[UpdateFiringGuard clock e]</text>
-        </cond>
-        <time id="ID1412382309">
-          <posattr x="-284.180000"
-                   y="666.000000"/>
-          <fillattr colour="White"
-                    pattern="Solid"
-                    filled="false"/>
-          <lineattr colour="Black"
-                    thick="0"
-                    type="Solid"/>
-          <textattr colour="Black"
-                    bold="false"/>
-          <text tool="CPN Tools"
-                version="4.0.1"/>
-        </time>
-        <code id="ID1412382310">
-          <posattr x="-264.180000"
-                   y="553.000000"/>
-          <fillattr colour="White"
-                    pattern="Solid"
-                    filled="false"/>
-          <lineattr colour="Black"
-                    thick="0"
-                    type="Solid"/>
-          <textattr colour="Black"
-                    bold="false"/>
-          <text tool="CPN Tools"
-                version="4.0.1"/>
-        </code>
-        <priority id="ID1412395979">
-          <posattr x="-478.680000"
-                   y="574.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1087,102 +1065,6 @@
           <text tool="CPN Tools"
                 version="4.0.1">(UpdateClockOnEvent 
     clock e)</text>
-        </annot>
-      </arc>
-      <arc id="ID1412386453"
-           orientation="PtoT"
-           order="2">
-        <posattr x="0.000000"
-                 y="0.000000"/>
-        <fillattr colour="White"
-                  pattern=""
-                  filled="false"/>
-        <lineattr colour="Black"
-                  thick="1"
-                  type="Solid"/>
-        <textattr colour="Black"
-                  bold="false"/>
-        <arrowattr headsize="1.200000"
-                   currentcyckle="2"/>
-        <transend idref="ID1412382307"/>
-        <placeend idref="ID1412337104"/>
-        <annot id="ID1412386454">
-          <posattr x="-203.000000"
-                   y="638.000000"/>
-          <fillattr colour="White"
-                    pattern="Solid"
-                    filled="false"/>
-          <lineattr colour="Black"
-                    thick="0"
-                    type="Solid"/>
-          <textattr colour="Black"
-                    bold="false"/>
-          <text tool="CPN Tools"
-                version="4.0.1">e</text>
-        </annot>
-      </arc>
-      <arc id="ID1412388064"
-           orientation="TtoP"
-           order="1">
-        <posattr x="0.000000"
-                 y="0.000000"/>
-        <fillattr colour="White"
-                  pattern=""
-                  filled="false"/>
-        <lineattr colour="Black"
-                  thick="1"
-                  type="Solid"/>
-        <textattr colour="Black"
-                  bold="false"/>
-        <arrowattr headsize="1.200000"
-                   currentcyckle="2"/>
-        <transend idref="ID1412382307"/>
-        <placeend idref="ID1412337104"/>
-        <annot id="ID1412388065">
-          <posattr x="-185.000000"
-                   y="602.000000"/>
-          <fillattr colour="White"
-                    pattern="Solid"
-                    filled="false"/>
-          <lineattr colour="Black"
-                    thick="0"
-                    type="Solid"/>
-          <textattr colour="Black"
-                    bold="false"/>
-          <text tool="CPN Tools"
-                version="4.0.1">(UpdateFiringTime clock e)</text>
-        </annot>
-      </arc>
-      <arc id="ID1412388615"
-           orientation="BOTHDIR"
-           order="1">
-        <posattr x="0.000000"
-                 y="0.000000"/>
-        <fillattr colour="White"
-                  pattern=""
-                  filled="false"/>
-        <lineattr colour="Black"
-                  thick="1"
-                  type="Solid"/>
-        <textattr colour="Black"
-                  bold="false"/>
-        <arrowattr headsize="1.200000"
-                   currentcyckle="2"/>
-        <transend idref="ID1412382307"/>
-        <placeend idref="ID1412352384"/>
-        <annot id="ID1412388616">
-          <posattr x="-350.000000"
-                   y="543.000000"/>
-          <fillattr colour="White"
-                    pattern="Solid"
-                    filled="false"/>
-          <lineattr colour="Black"
-                    thick="0"
-                    type="Solid"/>
-          <textattr colour="Black"
-                    bold="false"/>
-          <text tool="CPN Tools"
-                version="4.0.1">clock</text>
         </annot>
       </arc>
       <arc id="ID1412437138"
@@ -1796,7 +1678,6 @@ vl)</text>
       </hguideline>
       <vguideline id="ID1412671419"
                   x="-369.680000">
-        <guideline_elm idref="ID1412382307"/>
         <guideline_elm idref="ID1412352384"/>
       </vguideline>
       <Aux id="ID1412690127">
@@ -1904,7 +1785,35 @@ DriveToTarget:
         <text>val min_iat = 10;
 val max_iat = 10;
 
-0 + (Real.floor (uniform((Real.fromInt min_iat), (Real.fromInt max_iat))))</text>
+0 + )</text>
+      </Aux>
+      <Aux id="ID1412880574">
+        <posattr x="787.000000"
+                 y="546.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <label/>
+        <text>NoOfNodes();</text>
+      </Aux>
+      <Aux id="ID1412882698">
+        <posattr x="-52.680000"
+                 y="938.464000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <label/>
+        <text>(Real.floor (uniform((Real.fromInt 50), (Real.fromInt 90))))</text>
       </Aux>
     </page>
     <instances>
@@ -2185,14 +2094,14 @@ val max_iat = 10;
     </options>
     <binders>
       <cpnbinder id="ID1412333388"
-                 x="174"
-                 y="62"
+                 x="77"
+                 y="98"
                  width="1610"
                  height="986">
         <sheets>
           <cpnsheet id="ID1412333377"
-                    panx="-110.320000"
-                    pany="431.464000"
+                    panx="-152.320000"
+                    pany="446.464000"
                     zoom="1.000000"
                     instance="ID2149">
             <zorder>
