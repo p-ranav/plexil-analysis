@@ -140,3 +140,56 @@ fun UpdateThisVariable {name=name, new_value=new_value} [] = []
 fun UpdateTheseVariables [] local_variables = local_variables
   | UpdateTheseVariables ({name=name, new_value=new_value}::other_variables) local_variables = 
         (UpdateTheseVariables other_variables (UpdateThisVariable {name=name, new_value=new_value} local_variables)); 
+
+fun GetVariableValue this_variable [] = "0"
+  | GetVariableValue this_variable ({name=name, value=value}::other_variables) = 
+      if (this_variable = name) then 
+          value
+      else
+          (GetVariableValue this_variable other_variables);
+
+(*--------------------------------------------------------------------*)
+(*--------------------------------------------------------------------*)
+(* Find plexil node by name *)
+(*--------------------------------------------------------------------*)
+(*--------------------------------------------------------------------*)
+fun FindPlexilNode node_name ({name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}::other_nodes) = 
+        if (node_name = name) then 
+          {name=name, node_type=node_type, 
+              state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome} 
+        else
+            (FindPlexilNode node_name other_nodes);
+
+(*--------------------------------------------------------------------*)
+(*--------------------------------------------------------------------*)
+(* Can Execute Plexil Node? *)
+(* Conditional expressions need to be generated for every node *)
+(*--------------------------------------------------------------------*)
+(*--------------------------------------------------------------------*)
+fun CanExecute {name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome} = 
+
+  case name of
+   "SimpleAssignment" => false
+    | _ => false;
+
+fun CanExecuteAtleastOne [] = false
+  | CanExecuteAtleastOne (first_node::other_nodes) = 
+        if (CanExecute first_node) then 
+            true
+        else 
+            false orelse (CanExecuteAtleastOne other_nodes);
+
+(*--------------------------------------------------------------------*)
+(*--------------------------------------------------------------------*)
+(* Execute Guard *)
+(*--------------------------------------------------------------------*)
+(*--------------------------------------------------------------------*)
+fun ExecuteGuard event_queue clock plexil_nodes local_variables environment_variables = 
+    if  (event_queue != [] andalso 
+        (CanExecuteAtleastOne plexil_nodes))
+      then 
+        true
+      else
+        false;

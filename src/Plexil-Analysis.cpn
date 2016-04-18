@@ -520,10 +520,10 @@
                  h="76.800000"/>
         <token x="-154.000000"
                y="28.400000"/>
-        <marking x="-22.320000"
-                 y="8.600000"
+        <marking x="-14.000000"
+                 y="13.000000"
                  hidden="false">
-          <snap snap_id="7"
+          <snap snap_id="3"
                 anchor.horizontal="2"
                 anchor.vertical="2"/>
         </marking>
@@ -777,8 +777,8 @@
         <binding x="7.200000"
                  y="-3.000000"/>
         <cond id="ID1412475667">
-          <posattr x="-103.500000"
-                   y="205.000000"/>
+          <posattr x="161.000000"
+                   y="128.200000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -788,7 +788,7 @@
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.1">[el != []]</text>
+                version="4.0.1">(ExecuteGuard el clock pl lv vl)</text>
         </cond>
         <time id="ID1412475668">
           <posattr x="76.500000"
@@ -2053,8 +2053,8 @@ vl)</text>
                  height="1103">
         <sheets>
           <cpnsheet id="ID1412333377"
-                    panx="32.680000"
-                    pany="379.464000"
+                    panx="-160.320000"
+                    pany="356.464000"
                     zoom="1.000000"
                     instance="ID2149">
             <zorder>
