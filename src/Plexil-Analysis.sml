@@ -6,6 +6,8 @@
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
 
+val clock_limit = 100;
+
 (* Helper Function to remove element from list *)
 fun RemoveElem elem myList = filter (fn x => x <> elem) myList;
 
@@ -36,6 +38,12 @@ fun UpdateFiringTime clock [] = []
 (* EVENT FIRING GUARD - IS ANY EVENT IN THE EVENTS_LIST READY TO FIRE? *)
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
+fun ClockGuard clock = 
+  if (clock < clock_limit) then 
+    true
+  else
+    false;
+
 fun EventGuard clock {name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time} = 
 	if (clock < firing_time) then
 		true
@@ -44,10 +52,13 @@ fun EventGuard clock {name=name, min_iat=min_iat, max_iat=max_iat, updates=({nam
 
 fun EventsGuard clock [] = false
   | EventsGuard clock (event::other_events) = 
-  		if ((EventGuard clock event) = true) then
-  			true
-  		else
-  			false orelse (EventsGuard clock other_events);
+      if (ClockGuard clock) then 
+  		  if ((EventGuard clock event) = true) then
+  			 true
+  		  else
+  			 false orelse (EventsGuard clock other_events)
+      else
+        false;
 
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
@@ -171,7 +182,7 @@ fun CanExecute {name=name, node_type=node_type,
     state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome} = 
 
   case name of
-   "SimpleAssignment" => false
+   "SimpleAssignment" => true
     | _ => false;
 
 fun CanExecuteAtleastOne [] = false
@@ -193,3 +204,14 @@ fun ExecuteGuard event_queue clock plexil_nodes local_variables environment_vari
         true
       else
         false;
+
+fun GetAssignmentList [] = []
+  | GetAssignmentList ({name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+      ::other_nodes) = 
+
+  if (CanExecute {name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}) then 
+          assignments^^(GetAssignmentList other_nodes)
+  else
+      (GetAssignmentList other_nodes);

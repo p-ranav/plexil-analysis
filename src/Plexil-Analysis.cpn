@@ -1740,8 +1740,8 @@ vl)</text>
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412624090">
-          <posattr x="-274.000000"
-                   y="95.000000"/>
+          <posattr x="-219.000000"
+                   y="102.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1751,7 +1751,8 @@ vl)</text>
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.1">lv</text>
+                version="4.0.1">(UpdateTheseVariables 
+  (GetAssignmentList pl) lv)</text>
         </annot>
       </arc>
       <constraints/>
@@ -1794,6 +1795,21 @@ vl)</text>
           <text>&lt;same as model&gt;</text>
         </value>
       </option>
+      <option name="extensions.10008.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10003.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10007.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
       <option name="extensions.10005.enable">
         <value>
           <boolean>true</boolean>
@@ -1804,17 +1820,7 @@ vl)</text>
           <boolean>true</boolean>
         </value>
       </option>
-      <option name="extensions.10007.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10006.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10003.enable">
+      <option name="extensions.10011.enable">
         <value>
           <boolean>true</boolean>
         </value>
@@ -1824,17 +1830,12 @@ vl)</text>
           <boolean>true</boolean>
         </value>
       </option>
+      <option name="extensions.10006.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
       <option name="extensions.10001.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10008.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10011.enable">
         <value>
           <boolean>true</boolean>
         </value>
@@ -2053,8 +2054,8 @@ vl)</text>
                  height="1103">
         <sheets>
           <cpnsheet id="ID1412333377"
-                    panx="-160.320000"
-                    pany="356.464000"
+                    panx="-205.320000"
+                    pany="380.464000"
                     zoom="1.000000"
                     instance="ID2149">
             <zorder>
