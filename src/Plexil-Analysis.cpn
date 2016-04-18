@@ -187,13 +187,8 @@
               <id>value</id>
               <id>STRING</id>
             </recordfield>
-            <recordfield>
-              <id>scope</id>
-              <id>variable_scope</id>
-            </recordfield>
           </record>
-          <layout>colset node_variable = record name:STRING * value:STRING * 
-                                      scope:variable_scope;</layout>
+          <layout>colset node_variable = record name:STRING * value:STRING;</layout>
         </color>
         <color id="ID1412554678">
           <id>variables</id>
@@ -523,12 +518,12 @@
         <text>Plexil_Nodes</text>
         <ellipse w="140.000000"
                  h="76.800000"/>
-        <token x="-170.000000"
-               y="10.400000"/>
-        <marking x="-38.400000"
-                 y="25.600000"
+        <token x="-154.000000"
+               y="28.400000"/>
+        <marking x="-22.320000"
+                 y="8.600000"
                  hidden="false">
-          <snap snap_id="0"
+          <snap snap_id="7"
                 anchor.horizontal="2"
                 anchor.vertical="2"/>
         </marking>
@@ -602,8 +597,8 @@
                 version="4.0.1">variables</text>
         </type>
         <initmark id="ID1412534561">
-          <posattr x="-269.680000"
-                   y="10.000000"/>
+          <posattr x="-467.500000"
+                   y="16.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -613,7 +608,7 @@
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.1">1`[{name=&quot;foo&quot;, value=&quot;0&quot;, scope=[&quot;SimpleAssignment&quot;]}]</text>
+                version="4.0.1">1`[{name=&quot;foo&quot;, value=&quot;0&quot;}]</text>
         </initmark>
       </place>
       <trans id="ID1412338273"
@@ -773,7 +768,7 @@
                   filled="false"/>
         <lineattr colour="Black"
                   thick="1"
-                  type="Solid"/>
+                  type="solid"/>
         <textattr colour="Black"
                   bold="false"/>
         <text>Process_Event</text>
@@ -1765,8 +1760,6 @@ vl)</text>
         <guideline_elm idref="ID1412419624"/>
         <guideline_elm idref="ID1412338273"/>
         <guideline_elm idref="ID1412352384"/>
-        <guideline_elm idref="ID1412511381"/>
-        <guideline_elm idref="ID1412508264"/>
       </hguideline>
       <vguideline id="ID1412671419"
                   x="-369.680000">
@@ -1774,8 +1767,6 @@ vl)</text>
         <guideline_elm idref="ID1412534559"/>
         <guideline_elm idref="ID1412382307"/>
         <guideline_elm idref="ID1412352384"/>
-        <guideline_elm idref="ID1412540515"/>
-        <guideline_elm idref="ID1412601007"/>
       </vguideline>
     </page>
     <instances>
@@ -1803,21 +1794,6 @@ vl)</text>
           <text>&lt;same as model&gt;</text>
         </value>
       </option>
-      <option name="extensions.10008.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10003.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10007.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
       <option name="extensions.10005.enable">
         <value>
           <boolean>true</boolean>
@@ -1828,12 +1804,7 @@ vl)</text>
           <boolean>true</boolean>
         </value>
       </option>
-      <option name="extensions.10011.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10002.enable">
+      <option name="extensions.10007.enable">
         <value>
           <boolean>true</boolean>
         </value>
@@ -1843,7 +1814,27 @@ vl)</text>
           <boolean>true</boolean>
         </value>
       </option>
+      <option name="extensions.10003.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10002.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
       <option name="extensions.10001.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10008.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
+      <option name="extensions.10011.enable">
         <value>
           <boolean>true</boolean>
         </value>
@@ -2056,14 +2047,14 @@ vl)</text>
     </options>
     <binders>
       <cpnbinder id="ID1412333388"
-                 x="78"
-                 y="-48"
+                 x="212"
+                 y="6"
                  width="1732"
                  height="1103">
         <sheets>
           <cpnsheet id="ID1412333377"
-                    panx="27.680000"
-                    pany="429.464000"
+                    panx="32.680000"
+                    pany="379.464000"
                     zoom="1.000000"
                     instance="ID2149">
             <zorder>
@@ -2188,7 +2179,7 @@ vl)</text>
           <IndexNode expanded="true"/>
           <IndexNode expanded="true"/>
           <IndexNode expanded="true"/>
-          <IndexNode expanded="true"/>
+          <IndexNode expanded="false"/>
           <IndexNode expanded="true"/>
           <IndexNode expanded="true"/>
           <IndexNode expanded="true"/>

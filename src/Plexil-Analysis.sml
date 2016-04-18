@@ -123,4 +123,20 @@ fun UpdateVariableList {name=name, min_iat=min_iat, max_iat=max_iat,
         (UpdateThisVariable {name=var_name, value=var_value} variable_list));
 
 
+(*--------------------------------------------------------------------*)
+(*--------------------------------------------------------------------*)
+(* LOCAL Variables API - Getters and Setters *)
+(*--------------------------------------------------------------------*)
+(*--------------------------------------------------------------------*)
+fun UpdateThisVariable {name=name, new_value=new_value} [] = []
+  | UpdateThisVariable {name=name, new_value=new_value}
+                      ({name=var_name, value=var_value}::other_variables) = 
+          if (name = var_name) then 
+              ({name=var_name, value=new_value}::other_variables)
+          else
+            {name=var_name, value=var_value}
+              ::(UpdateThisVariable {name=name, new_value=new_value} other_variables);
 
+fun UpdateTheseVariables [] local_variables = local_variables
+  | UpdateTheseVariables ({name=name, new_value=new_value}::other_variables) local_variables = 
+        (UpdateTheseVariables other_variables (UpdateThisVariable {name=name, new_value=new_value} local_variables)); 
