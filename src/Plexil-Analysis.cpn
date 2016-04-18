@@ -332,8 +332,8 @@
                 version="4.0.1">event_list</text>
         </type>
         <initmark id="ID1412337106">
-          <posattr x="25.000000"
-                   y="807.000000"/>
+          <posattr x="24.000000"
+                   y="791.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -343,8 +343,8 @@
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.1">1`[{name=&quot;WheelStuck&quot;, min_iat=5, max_iat=8, updates=[{name=&quot;wheel&quot;, new_value=&quot;stuck&quot;}], firing_time=0},
-     {name=&quot;RedRockFound&quot;, min_iat=3, max_iat=4, updates=[{name=&quot;redRock&quot;, new_value=&quot;true&quot;}], firing_time=0}]</text>
+                version="4.0.1">1`[{name=&quot;Target_Detected&quot;, min_iat=50, max_iat=90, 
+    updates=[{name=&quot;target_in_view&quot;, new_value=&quot;true&quot;}], firing_time=0}]</text>
         </initmark>
       </place>
       <place id="ID1412339122">
@@ -467,11 +467,11 @@
                  h="84.000000"/>
         <token x="-36.800000"
                y="31.536000"/>
-        <marking x="82.500000"
-                 y="19.000000"
+        <marking x="-23.500000"
+                 y="25.000000"
                  hidden="false">
           <snap snap_id="0"
-                anchor.horizontal="3"
+                anchor.horizontal="1"
                 anchor.vertical="2"/>
         </marking>
         <type id="ID1412419625">
@@ -489,8 +489,8 @@
                 version="4.0.1">variable_list</text>
         </type>
         <initmark id="ID1412419626">
-          <posattr x="539.800000"
-                   y="493.464000"/>
+          <posattr x="586.500000"
+                   y="488.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -500,8 +500,8 @@
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.1">1`[{name=&quot;redRock&quot;, value=&quot;false&quot;}, 
-      {name=&quot;wheel&quot;, value=&quot;not_stuck&quot;}]</text>
+                version="4.0.1">1`[{name=&quot;target_in_view&quot;, value=&quot;false&quot;}, 
+      {name=&quot;temperature&quot;, value=&quot;~5&quot;}]</text>
         </initmark>
       </place>
       <place id="ID1412514571">
@@ -518,14 +518,14 @@
         <text>Plexil_Nodes</text>
         <ellipse w="140.000000"
                  h="76.800000"/>
-        <token x="-154.000000"
-               y="28.400000"/>
-        <marking x="-14.000000"
-                 y="13.000000"
+        <token x="-158.000000"
+               y="0.000000"/>
+        <marking x="-35.000000"
+                 y="159.000000"
                  hidden="false">
-          <snap snap_id="3"
+          <snap snap_id="0"
                 anchor.horizontal="2"
-                anchor.vertical="2"/>
+                anchor.vertical="3"/>
         </marking>
         <type id="ID1412514572">
           <posattr x="-277.500000"
@@ -542,8 +542,8 @@
                 version="4.0.1">plexil_nodes</text>
         </type>
         <initmark id="ID1412514573">
-          <posattr x="-952.000000"
-                   y="502.000000"/>
+          <posattr x="-1142.500000"
+                   y="472.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -553,10 +553,39 @@
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.1">1`[{name=&quot;SimpleAssignment&quot;, node_type=&quot;Assignment&quot;, 
-          state=&quot;INACTIVE&quot;, parent=&quot;NULL&quot;, 
-          assignments=[{name=&quot;foo&quot;, new_value=&quot;3&quot;}], 
-          commands=[{name=&quot;some_command&quot;, WCET=1}], outcome=&quot;&quot;}]</text>
+                version="4.0.1">1`[{name=&quot;DriveToTarget&quot;, node_type=&quot;List&quot;, state=&quot;Waiting&quot;, parent=&quot;NULL&quot;, 
+                                  assignments=[], 
+                                  commands=[], outcome=&quot;&quot;}, 
+     {name=&quot;Drive&quot;, node_type=&quot;Command&quot;, state=&quot;Waiting&quot;, parent=&quot;DriveToTarget&quot;, 
+                                  assignments=[], 
+                                  commands=[{name=&quot;rover_drive(10)&quot;, WCET=1}], outcome=&quot;&quot;}, 
+     {name=&quot;StopForTimeout&quot;, node_type=&quot;List&quot;, state=&quot;Waiting&quot;, parent=&quot;DriveToTarget&quot;, 
+                                  assignments=[], 
+                                  commands=[], outcome=&quot;&quot;}, 
+     {name=&quot;StopOnTimeout&quot;, node_type=&quot;Command&quot;, state=&quot;Waiting&quot;, parent=&quot;StopForTimeout&quot;, 
+                                  assignments=[], 
+                                  commands=[{name=&quot;rover_stop()&quot;, WCET=1}], outcome=&quot;&quot;}, 
+     {name=&quot;SetTimeoutFlag&quot;, node_type=&quot;Assignment&quot;, state=&quot;Waiting&quot;, parent=&quot;StopForTimeout&quot;, 
+                                  assignments=[{name=&quot;timeout&quot;, new_value=&quot;true&quot;}], 
+                                  commands=[], outcome=&quot;&quot;}, 
+     {name=&quot;StopForTarget&quot;, node_type=&quot;List&quot;, state=&quot;Waiting&quot;, parent=&quot;DriveToTarget&quot;, 
+                                  assignments=[], 
+                                  commands=[], outcome=&quot;&quot;}, 
+     {name=&quot;StopOnTarget&quot;, node_type=&quot;Command&quot;, state=&quot;Waiting&quot;, parent=&quot;StopForTarget&quot;, 
+                                  assignments=[], 
+                                  commands=[{name=&quot;rover_stop()&quot;, WCET=1}], outcome=&quot;&quot;},
+     {name=&quot;SetDriveFlag&quot;, node_type=&quot;Assignment&quot;, state=&quot;Waiting&quot;, parent=&quot;StopForTarget&quot;, 
+                                  assignments=[{name=&quot;drive_done&quot;, new_value=&quot;true&quot;}], 
+                                  commands=[], outcome=&quot;&quot;},
+     {name=&quot;TakeNavCam&quot;, node_type=&quot;Command&quot;, state=&quot;Waiting&quot;, parent=&quot;DriveToTarget&quot;, 
+                                  assignments=[], 
+                                  commands=[{name=&quot;take_navcam()&quot;, WCET=1}], outcome=&quot;&quot;}, 
+     {name=&quot;TakePanCam&quot;, node_type=&quot;Command&quot;, state=&quot;Waiting&quot;, parent=&quot;DriveToTarget&quot;, 
+                                  assignments=[], 
+                                  commands=[{name=&quot;take_pancam()&quot;, WCET=1}], outcome=&quot;&quot;},
+     {name=&quot;Heater&quot;, node_type=&quot;Command&quot;, state=&quot;Waiting&quot;, parent=&quot;DriveToTarget&quot;, 
+                                  assignments=[], 
+                                  commands=[{name=&quot;turn_on_heater()&quot;, WCET=1}], outcome=&quot;&quot;}]</text>
         </initmark>
       </place>
       <place id="ID1412534559">
@@ -597,8 +626,8 @@
                 version="4.0.1">variables</text>
         </type>
         <initmark id="ID1412534561">
-          <posattr x="-467.500000"
-                   y="16.000000"/>
+          <posattr x="-1016.500000"
+                   y="23.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -608,7 +637,7 @@
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.1">1`[{name=&quot;foo&quot;, value=&quot;0&quot;}]</text>
+                version="4.0.1">1`[{name=&quot;drive_done&quot;, value=&quot;false&quot;}, {name=&quot;timeout&quot;, value=&quot;false&quot;}]</text>
         </initmark>
       </place>
       <trans id="ID1412338273"
@@ -1044,8 +1073,8 @@
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412375033">
-          <posattr x="-226.000000"
-                   y="468.000000"/>
+          <posattr x="-216.000000"
+                   y="475.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1055,7 +1084,8 @@
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.1">(UpdateClock clock e)</text>
+                version="4.0.1">(UpdateClockOnEvent 
+    clock e)</text>
         </annot>
       </arc>
       <arc id="ID1412386453"
@@ -1753,7 +1783,7 @@ vl)</text>
                     bold="false"/>
           <text tool="CPN Tools"
                 version="4.0.1">(UpdateTheseVariables 
-  (GetAssignmentList pl clock el lv vl) lv)</text>
+  (GetAssignmentList pl pl clock el lv vl) lv)</text>
         </annot>
       </arc>
       <constraints/>
@@ -1770,6 +1800,96 @@ vl)</text>
         <guideline_elm idref="ID1412382307"/>
         <guideline_elm idref="ID1412352384"/>
       </vguideline>
+      <Aux id="ID1412690127">
+        <posattr x="-1848.000000"
+                 y="907.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <label/>
+        <text>(* DriveToTarget PLEXIL PLAN *)
+
+DriveToTarget:
+{
+  Boolean drive_done = false, timeout = false;
+  Concurrence:
+
+    Drive:
+    {
+      Command: rover_drive(10);
+    }
+
+    StopForTimeout:
+    {
+      StartCondition: Lookup(time) &gt;= 10;
+      Concurrence:
+        Stop:
+        {
+          Command: rover_stop();
+        }
+        SetTimeoutFlag:
+        {
+          Assignment: timeout = true;
+        }
+    }
+
+    StopForTarget:
+    {
+      StartCondition: Lookup(target_in_view);
+      SkipCondition: timeout;
+      Concurrence:
+        Stop:
+        {
+          Command: rover_stop();
+        }
+        SetDriveFlag:
+        {
+          Assignment: drive_done = true;
+        }
+    }
+
+    TakeNavcam:
+    {
+      StartCondition: timeout;
+      SkipCondition: drive_done;
+      Command: take_navcam();
+    }
+
+    TakePancam:
+    {
+      StartCondition: drive_done;
+      SkipCondition: timeout;
+      Command: take_pancam();
+    }
+
+    Heater:
+    {
+      SkipCondition: timeout;
+      StartCondition: Lookup(temperature) &lt; 0;
+      EndCondition: Lookup(temperature) &gt;= 10;
+      Command: turn_on_heater();
+    }
+}</text>
+      </Aux>
+      <Aux id="ID1412697884">
+        <posattr x="-1914.000000"
+                 y="1122.000000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <label/>
+        <text>1`[{name=&quot;Target_Detected&quot;, min_iat=50, max_iat=90, updates=[{name=&quot;target_in_view&quot;, new_value=&quot;true&quot;}], firing_time=0}]</text>
+      </Aux>
     </page>
     <instances>
       <instance id="ID2149"
@@ -2049,14 +2169,14 @@ vl)</text>
     </options>
     <binders>
       <cpnbinder id="ID1412333388"
-                 x="125"
-                 y="-26"
+                 x="132"
+                 y="-69"
                  width="1732"
                  height="1103">
         <sheets>
           <cpnsheet id="ID1412333377"
-                    panx="-58.320000"
-                    pany="409.464000"
+                    panx="-6.320000"
+                    pany="468.464000"
                     zoom="1.000000"
                     instance="ID2149">
             <zorder>

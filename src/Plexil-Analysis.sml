@@ -74,7 +74,7 @@ fun EarliestEvent [{name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=
   (EarliestEvent ({name=name2, min_iat=min_iat2, max_iat=max_iat2, updates=({name=var_name2, new_value=var_value2}::other_updates2), firing_time=firing_time2}::other_events));
 
 (* Update by shortest time *)
-fun UpdateClock clock events = (EarliestEvent events);
+fun UpdateClockOnEvent clock events = (EarliestEvent events);
 
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
@@ -105,7 +105,7 @@ fun SameEvent {name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_n
 fun UpdateEventList clock earliest_event [] = []
   | UpdateEventList clock earliest_event (event::event_list) = 
     if ( (SameEvent event earliest_event) = true) then
-    (CalculateFiringTime (UpdateClock clock [earliest_event]) event)::(UpdateEventList clock earliest_event event_list)
+    (CalculateFiringTime (UpdateClockOnEvent clock [earliest_event]) event)::(UpdateEventList clock earliest_event event_list)
     else
      event::(UpdateEventList clock earliest_event event_list);
 
@@ -183,12 +183,42 @@ fun FindPlexilNode node_name ({name=name, node_type=node_type,
 (* PLEXIL NODE CONDITIONS *)
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
-fun SimpleAssignment_Condition {name=name, node_type=node_type, 
+fun StopForTarget_Condition {name=name, node_type=node_type, 
     state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
                clock event_queue local_variables environment_variables = 
-      if ((GetEnvVariableValue "redRock" environment_variables) = "true") then
+        if (((GetEnvVariableValue "target_in_view" environment_variables) = "true")
+             andalso ((GetVariableValue "timeout" local_variables) = "false") ) then 
           true
-      else false;
+        else
+          false;
+
+fun TakeNavCam_Condition {name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+               clock event_queue local_variables environment_variables =  
+        if (((GetVariableValue "timeout" local_variables) = "true")
+             andalso ((GetVariableValue "drive_done" local_variables) = "false") ) then 
+          true
+        else
+          false;    
+
+fun TakePanCam_Condition {name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+               clock event_queue local_variables environment_variables =  
+        if (((GetVariableValue "timeout" local_variables) = "false")
+             andalso ((GetVariableValue "drive_done" local_variables) = "true") ) then 
+          true
+        else
+          false;               
+
+fun Heater_Condition {name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+               clock event_queue local_variables environment_variables =  
+        if (((GetVariableValue "timeout" local_variables) = "false")
+             andalso ( (valOf (Int.fromString 
+                          (GetEnvVariableValue "temperature" environment_variables))) < 0 )) then 
+          true
+        else
+          false;   
 
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
@@ -198,25 +228,60 @@ fun SimpleAssignment_Condition {name=name, node_type=node_type,
 (*--------------------------------------------------------------------*)
 fun CanExecute {name=name, node_type=node_type, 
     state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
-               clock event_queue local_variables environment_variables = 
+               all_nodes clock event_queue local_variables environment_variables = 
 
   case name of
-   "SimpleAssignment" => (SimpleAssignment_Condition {name=name, node_type=node_type, 
+      "DriveToTarget" => true andalso (parent = "NULL")
+    | "Drive" => true andalso 
+                (CanExecute (FindPlexilNode parent all_nodes) all_nodes clock 
+                            event_queue local_variables environment_variables)
+    | "StopForTimeout" => (clock >= 10) andalso 
+                          (CanExecute (FindPlexilNode parent all_nodes) all_nodes clock 
+                            event_queue local_variables environment_variables)
+    | "StopOnTimeout" => (CanExecute (FindPlexilNode parent all_nodes) all_nodes clock 
+                            event_queue local_variables environment_variables)
+    | "SetTimeoutFlag" => (CanExecute (FindPlexilNode parent all_nodes) all_nodes clock 
+                            event_queue local_variables environment_variables)
+    | "StopForTarget" => (StopForTarget_Condition {name=name, node_type=node_type, 
                                 state=state, parent=parent, assignments=assignments, 
-                                      commands=commands, outcome=outcome}
-                           clock event_queue local_variables environment_variables)
+                                  commands=commands, outcome=outcome}
+                          clock event_queue local_variables environment_variables) andalso
+                          (CanExecute (FindPlexilNode parent all_nodes) all_nodes clock 
+                            event_queue local_variables environment_variables)
+    | "StopOnTarget" => (CanExecute (FindPlexilNode parent all_nodes) all_nodes clock 
+                            event_queue local_variables environment_variables)
+    | "SetDriveFlag" => (CanExecute (FindPlexilNode parent all_nodes) all_nodes clock 
+                            event_queue local_variables environment_variables)
+    | "TakeNavCam" => (TakeNavCam_Condition {name=name, node_type=node_type, 
+                                state=state, parent=parent, assignments=assignments, 
+                                  commands=commands, outcome=outcome}
+                          clock event_queue local_variables environment_variables) andalso
+                      (CanExecute (FindPlexilNode parent all_nodes) all_nodes clock 
+                            event_queue local_variables environment_variables)
+    | "TakePanCam" => (TakePanCam_Condition {name=name, node_type=node_type, 
+                                state=state, parent=parent, assignments=assignments, 
+                                  commands=commands, outcome=outcome}
+                          clock event_queue local_variables environment_variables) andalso
+                      (CanExecute (FindPlexilNode parent all_nodes) all_nodes clock 
+                            event_queue local_variables environment_variables)
+    | "Heater" => (Heater_Condition {name=name, node_type=node_type, 
+                                state=state, parent=parent, assignments=assignments, 
+                                  commands=commands, outcome=outcome}
+                          clock event_queue local_variables environment_variables) andalso
+                  (CanExecute (FindPlexilNode parent all_nodes) all_nodes clock 
+                            event_queue local_variables environment_variables)
     | _ => false;
 
-fun CanExecuteAtleastOne [] clock 
+fun CanExecuteAtleastOne [] all_nodes clock 
                   event_queue local_variables environment_variables = false
-  | CanExecuteAtleastOne (first_node::other_nodes) clock 
+  | CanExecuteAtleastOne (first_node::other_nodes) all_nodes clock 
               event_queue local_variables environment_variables = 
-        if (CanExecute first_node 
+        if (CanExecute first_node all_nodes
                 clock event_queue local_variables environment_variables) then 
             true
         else 
             false orelse (CanExecuteAtleastOne 
-                          other_nodes clock 
+                          other_nodes all_nodes clock 
                           event_queue local_variables environment_variables);
 
 (*--------------------------------------------------------------------*)
@@ -233,38 +298,53 @@ fun CanExecuteAtleastOne [] clock
 (*--------------------------------------------------------------------*)
 fun ExecuteGuard event_queue clock plexil_nodes local_variables environment_variables = 
     if  (event_queue != [] andalso 
-        (CanExecuteAtleastOne plexil_nodes clock event_queue local_variables environment_variables))
+        (CanExecuteAtleastOne plexil_nodes plexil_nodes clock 
+              event_queue local_variables environment_variables))
       then 
         true
-      else
-        false;
+    else
+      false;
 
-fun GetAssignmentList [] clock event_queue local_variables environment_variables = []
+fun GetAssignmentList [] all_nodes clock event_queue local_variables environment_variables = []
   | GetAssignmentList ({name=name, node_type=node_type, 
     state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
-      ::other_nodes) clock event_queue local_variables environment_variables = 
+      ::other_nodes) all_nodes clock event_queue local_variables environment_variables = 
 
   if (CanExecute {name=name, node_type=node_type, 
     state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
-    clock event_queue local_variables environment_variables) then 
-          assignments^^(GetAssignmentList other_nodes clock event_queue local_variables environment_variables)
+    all_nodes clock event_queue local_variables environment_variables) then 
+          assignments^^(GetAssignmentList other_nodes all_nodes clock event_queue local_variables environment_variables)
   else
-      (GetAssignmentList other_nodes clock event_queue local_variables environment_variables);      
+      (GetAssignmentList other_nodes all_nodes clock event_queue local_variables environment_variables);      
 
 fun GetWCETThisCommand [] = 0
    | GetWCETThisCommand ({name=name, WCET=WCET}::other_commands) = 
         WCET + (GetWCETThisCommand other_commands);
 
-fun GetCommandsWCET [] clock event_queue local_variables environment_variables = 0
+fun GetCommandsWCET [] all_nodes clock event_queue local_variables environment_variables = 0
   | GetCommandsWCET ({name=name, node_type=node_type, 
     state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
-      ::other_nodes) clock event_queue local_variables environment_variables = 
+      ::other_nodes) all_nodes clock event_queue local_variables environment_variables = 
   if (CanExecute {name=name, node_type=node_type, 
-    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome} all_nodes
     clock event_queue local_variables environment_variables) then 
-        (GetWCETThisCommand commands) + (GetCommandsWCET other_nodes clock event_queue local_variables environment_variables)
+        (GetWCETThisCommand commands) + (GetCommandsWCET other_nodes all_nodes clock event_queue local_variables environment_variables)
   else
-    (GetCommandsWCET other_nodes clock event_queue local_variables environment_variables);
+    (GetCommandsWCET other_nodes all_nodes clock event_queue local_variables environment_variables);
 
 fun UpdateClock plexil_nodes clock event_queue local_variables environment_variables = 
-  clock + (GetCommandsWCET plexil_nodes clock event_queue local_variables environment_variables);
+  clock + (GetCommandsWCET plexil_nodes plexil_nodes clock event_queue local_variables environment_variables);
+
+fun AccumulateNodes [] all_nodes clock event_queue local_variables environment_variables = []
+  | AccumulateNodes ({name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}::other_nodes) 
+          all_nodes clock event_queue local_variables environment_variables = 
+
+  if (CanExecute {name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+    all_nodes clock event_queue local_variables environment_variables) then 
+        {name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}::
+        (AccumulateNodes other_nodes all_nodes clock event_queue local_variables environment_variables)
+  else
+      (AccumulateNodes other_nodes all_nodes clock event_queue local_variables environment_variables);  
