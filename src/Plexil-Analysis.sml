@@ -16,19 +16,25 @@ fun RemoveElem elem myList = filter (fn x => x <> elem) myList;
 (* SHOULD WE UPDATE THE FIRING TIME OF THE EVENT? *)
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
-fun FiringGuard clock {name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time} = 
-	if (clock >= firing_time) then true else false;
+fun FiringGuard clock {name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, firing_time=firing_time} = 
+	if (clock >= firing_time) then 
+    true 
+  else 
+    false;
 
 fun UpdateFiringGuard clock [] = false
   | UpdateFiringGuard clock (event::other_events) = 
-  		if ((FiringGuard clock event) = true) then true
-  		else false orelse (UpdateFiringGuard clock other_events);
+  		if ((FiringGuard clock event) = true) then 
+        true
+  		else 
+        false orelse (UpdateFiringGuard clock other_events);
 
-fun CalculateFiringTime clock {name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time} = 
+fun CalculateFiringTime clock {name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, firing_time=firing_time} = 
 	if (clock >= firing_time) then
-		{name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time + (Real.floor (uniform((Real.fromInt min_iat), (Real.fromInt max_iat))))}
+		{name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, 
+        firing_time=firing_time + (Real.floor (uniform((Real.fromInt min_iat), (Real.fromInt max_iat))))}
 	else	
-		{name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time};
+		{name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, firing_time=firing_time};
 
 fun UpdateFiringTime clock [] = []
   | UpdateFiringTime clock (event::other_events) = 
@@ -44,7 +50,7 @@ fun ClockGuard clock =
   else
     false;
 
-fun EventGuard clock {name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time} = 
+fun EventGuard clock {name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, firing_time=firing_time} = 
 	if (clock < firing_time) then
 		true
 	else
@@ -65,13 +71,13 @@ fun EventsGuard clock [] = false
 (* FIND EARLIEST EVENT AND UPDATE CLOCK TO THIS VALUE *)
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
-fun EarliestEvent [{name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time}] = firing_time
-  | EarliestEvent ({name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time}
-  ::{name=name2, min_iat=min_iat2, max_iat=max_iat2, updates=({name=var_name2, new_value=var_value2}::other_updates2), firing_time=firing_time2}::other_events) = 
+fun EarliestEvent [{name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, firing_time=firing_time}] = firing_time
+  | EarliestEvent ({name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, firing_time=firing_time}
+  ::{name=name2, min_iat=min_iat2, max_iat=max_iat2, updates=updates2, firing_time=firing_time2}::other_events) = 
   if (firing_time < firing_time2) then 
-  (EarliestEvent ({name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time}::other_events))
+  (EarliestEvent ({name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, firing_time=firing_time}::other_events))
   else
-  (EarliestEvent ({name=name2, min_iat=min_iat2, max_iat=max_iat2, updates=({name=var_name2, new_value=var_value2}::other_updates2), firing_time=firing_time2}::other_events));
+  (EarliestEvent ({name=name2, min_iat=min_iat2, max_iat=max_iat2, updates=updates2, firing_time=firing_time2}::other_events));
 
 (* Update by shortest time *)
 fun UpdateClockOnEvent clock events = (EarliestEvent events);
@@ -81,14 +87,14 @@ fun UpdateClockOnEvent clock events = (EarliestEvent events);
 (* ENQUEUE EARLIEST EVENT ONTO EVENT QUEUE *)
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
-fun FindEarliestEvent [{name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time}] = 
-		[{name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time}]
-  | FindEarliestEvent ({name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time}
-  ::{name=name2, min_iat=min_iat2, max_iat=max_iat2, updates=({name=var_name2, new_value=var_value2}::other_updates2), firing_time=firing_time2}::other_events) = 
+fun FindEarliestEvent [{name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, firing_time=firing_time}] = 
+		[{name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, firing_time=firing_time}]
+  | FindEarliestEvent ({name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, firing_time=firing_time}
+  ::{name=name2, min_iat=min_iat2, max_iat=max_iat2, updates=updates2, firing_time=firing_time2}::other_events) = 
   if (firing_time < firing_time2) then 
-  (FindEarliestEvent ({name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time}::other_events))
+  (FindEarliestEvent ({name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, firing_time=firing_time}::other_events))
   else
-  (FindEarliestEvent ({name=name2, min_iat=min_iat2, max_iat=max_iat2, updates=({name=var_name2, new_value=var_value2}::other_updates2), firing_time=firing_time2}::other_events));
+  (FindEarliestEvent ({name=name2, min_iat=min_iat2, max_iat=max_iat2, updates=updates2, firing_time=firing_time2}::other_events));
 
 fun EnqueueEvent event_queue event_list = 
 	event_queue^^(FindEarliestEvent event_list);
@@ -98,8 +104,8 @@ fun EnqueueEvent event_queue event_list =
 (* UPDATE FIRING TIME OF ENQUEUED EVENT *)
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
-fun SameEvent {name=name, min_iat=min_iat, max_iat=max_iat, updates=({name=var_name, new_value=var_value}::other_updates), firing_time=firing_time}
-  {name=name2, min_iat=min_iat2, max_iat=max_iat2, updates=({name=var_name2, new_value=var_value2}::other_updates2), firing_time=firing_time2} = 
+fun SameEvent {name=name, min_iat=min_iat, max_iat=max_iat, updates=updates, firing_time=firing_time}
+  {name=name2, min_iat=min_iat2, max_iat=max_iat2, updates=updates2, firing_time=firing_time2} = 
       if (name = name2 andalso firing_time=firing_time2) then true else false;
  
 fun UpdateEventList clock earliest_event [] = []

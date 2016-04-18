@@ -310,11 +310,11 @@
                  h="90.000000"/>
         <token x="-88.000000"
                y="49.000000"/>
-        <marking x="-14.000000"
-                 y="13.000000"
+        <marking x="27.000000"
+                 y="-12.000000"
                  hidden="false">
-          <snap snap_id="3"
-                anchor.horizontal="3"
+          <snap snap_id="0"
+                anchor.horizontal="1"
                 anchor.vertical="2"/>
         </marking>
         <type id="ID1412337761">
@@ -333,7 +333,7 @@
         </type>
         <initmark id="ID1412337106">
           <posattr x="24.000000"
-                   y="791.000000"/>
+                   y="798.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -343,7 +343,8 @@
           <textattr colour="Black"
                     bold="false"/>
           <text tool="CPN Tools"
-                version="4.0.1">1`[{name=&quot;Target_Detected&quot;, min_iat=50, max_iat=90, 
+                version="4.0.1">1`[{name=&quot;Periodic_Check&quot;, min_iat=10, max_iat=10, updates=[], firing_time=0}, 
+    {name=&quot;Target_Detected&quot;, min_iat=50, max_iat=90, 
     updates=[{name=&quot;target_in_view&quot;, new_value=&quot;true&quot;}], firing_time=0}]</text>
         </initmark>
       </place>
@@ -505,8 +506,8 @@
         </initmark>
       </place>
       <place id="ID1412514571">
-        <posattr x="-369.680000"
-                 y="276.000000"/>
+        <posattr x="-273.000000"
+                 y="31.000000"/>
         <fillattr colour="White"
                   pattern=""
                   filled="false"/>
@@ -520,16 +521,16 @@
                  h="76.800000"/>
         <token x="-158.000000"
                y="0.000000"/>
-        <marking x="-35.000000"
-                 y="159.000000"
+        <marking x="70.000000"
+                 y="-53.000000"
                  hidden="false">
           <snap snap_id="0"
-                anchor.horizontal="2"
-                anchor.vertical="3"/>
+                anchor.horizontal="3"
+                anchor.vertical="1"/>
         </marking>
         <type id="ID1412514572">
-          <posattr x="-277.500000"
-                   y="239.000000"/>
+          <posattr x="-180.500000"
+                   y="-6.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -542,8 +543,8 @@
                 version="4.0.1">plexil_nodes</text>
         </type>
         <initmark id="ID1412514573">
-          <posattr x="-1142.500000"
-                   y="472.000000"/>
+          <posattr x="223.500000"
+                   y="-335.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -589,8 +590,8 @@
         </initmark>
       </place>
       <place id="ID1412534559">
-        <posattr x="-369.680000"
-                 y="84.000000"/>
+        <posattr x="352.000000"
+                 y="42.000000"/>
         <fillattr colour="White"
                   pattern=""
                   filled="false"/>
@@ -602,18 +603,18 @@
         <text>Local_Variables</text>
         <ellipse w="128.800000"
                  h="78.400000"/>
-        <token x="-146.800000"
+        <token x="-10.000000"
                y="0.000000"/>
-        <marking x="-27.000000"
+        <marking x="-1.000000"
                  y="0.000000"
                  hidden="false">
-          <snap snap_id="4"
-                anchor.horizontal="2"
+          <snap snap_id="2"
+                anchor.horizontal="1"
                 anchor.vertical="3"/>
         </marking>
         <type id="ID1412534560">
-          <posattr x="-292.500000"
-                   y="46.000000"/>
+          <posattr x="428.500000"
+                   y="4.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -626,8 +627,8 @@
                 version="4.0.1">variables</text>
         </type>
         <initmark id="ID1412534561">
-          <posattr x="-1016.500000"
-                   y="23.000000"/>
+          <posattr x="653.500000"
+                   y="101.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -847,7 +848,7 @@
           <text tool="CPN Tools"
                 version="4.0.1"/>
         </code>
-        <priority id="ID1412492122">
+        <priority id="ID1412832425">
           <posattr x="-90.000000"
                    y="128.200000"/>
           <fillattr colour="White"
@@ -1624,8 +1625,8 @@ vl)</text>
         <placeend idref="ID1412514571"/>
         <bendpoint id="ID1412540515"
                    serial="1">
-          <posattr x="-369.000000"
-                   y="168.000000"/>
+          <posattr x="-273.000000"
+                   y="149.464000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1636,8 +1637,8 @@ vl)</text>
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412519174">
-          <posattr x="-216.000000"
-                   y="179.000000"/>
+          <posattr x="-153.000000"
+                   y="138.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1667,10 +1668,10 @@ vl)</text>
                    currentcyckle="2"/>
         <transend idref="ID1412475666"/>
         <placeend idref="ID1412534559"/>
-        <bendpoint id="ID1412542045"
+        <bendpoint id="ID1412795161"
                    serial="1">
           <posattr x="0.000000"
-                   y="84.000000"/>
+                   y="27.464000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1682,7 +1683,7 @@ vl)</text>
         </bendpoint>
         <annot id="ID1412542044">
           <posattr x="-9.000000"
-                   y="112.000000"/>
+                   y="84.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1714,8 +1715,8 @@ vl)</text>
         <placeend idref="ID1412514571"/>
         <bendpoint id="ID1412601007"
                    serial="1">
-          <posattr x="-369.000000"
-                   y="168.000000"/>
+          <posattr x="-273.000000"
+                   y="149.464000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1726,8 +1727,8 @@ vl)</text>
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412601006">
-          <posattr x="-378.500000"
-                   y="202.000000"/>
+          <posattr x="-263.500000"
+                   y="110.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1760,7 +1761,7 @@ vl)</text>
         <bendpoint id="ID1412624091"
                    serial="1">
           <posattr x="0.000000"
-                   y="84.000000"/>
+                   y="27.464000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1771,8 +1772,8 @@ vl)</text>
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412624090">
-          <posattr x="-123.000000"
-                   y="66.000000"/>
+          <posattr x="146.000000"
+                   y="-12.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1795,14 +1796,12 @@ vl)</text>
       </hguideline>
       <vguideline id="ID1412671419"
                   x="-369.680000">
-        <guideline_elm idref="ID1412514571"/>
-        <guideline_elm idref="ID1412534559"/>
         <guideline_elm idref="ID1412382307"/>
         <guideline_elm idref="ID1412352384"/>
       </vguideline>
       <Aux id="ID1412690127">
-        <posattr x="-1848.000000"
-                 y="907.000000"/>
+        <posattr x="-695.000000"
+                 y="-53.000000"/>
         <fillattr colour="White"
                   pattern=""
                   filled="false"/>
@@ -1889,6 +1888,23 @@ DriveToTarget:
                   bold="false"/>
         <label/>
         <text>1`[{name=&quot;Target_Detected&quot;, min_iat=50, max_iat=90, updates=[{name=&quot;target_in_view&quot;, new_value=&quot;true&quot;}], firing_time=0}]</text>
+      </Aux>
+      <Aux id="ID1412864880">
+        <posattr x="966.000000"
+                 y="-144.536000"/>
+        <fillattr colour="White"
+                  pattern=""
+                  filled="false"/>
+        <lineattr colour="Black"
+                  thick="1"
+                  type="Solid"/>
+        <textattr colour="Black"
+                  bold="false"/>
+        <label/>
+        <text>val min_iat = 10;
+val max_iat = 10;
+
+0 + (Real.floor (uniform((Real.fromInt min_iat), (Real.fromInt max_iat))))</text>
       </Aux>
     </page>
     <instances>
@@ -2169,14 +2185,14 @@ DriveToTarget:
     </options>
     <binders>
       <cpnbinder id="ID1412333388"
-                 x="132"
-                 y="-69"
-                 width="1732"
-                 height="1103">
+                 x="174"
+                 y="62"
+                 width="1610"
+                 height="986">
         <sheets>
           <cpnsheet id="ID1412333377"
-                    panx="-6.320000"
-                    pany="468.464000"
+                    panx="-110.320000"
+                    pany="431.464000"
                     zoom="1.000000"
                     instance="ID2149">
             <zorder>
