@@ -133,6 +133,12 @@ fun UpdateVariableList {name=name, min_iat=min_iat, max_iat=max_iat,
     (UpdateVariableList {name=name, min_iat=min_iat, max_iat=max_iat, updates=other_updates, firing_time=firing_time} 
         (UpdateThisVariable {name=var_name, value=var_value} variable_list));
 
+fun GetEnvVariableValue this_variable [] = "0"
+  | GetEnvVariableValue this_variable ({name=name, value=value}::other_variables) = 
+      if (this_variable = name) then 
+          value
+      else
+          (GetEnvVariableValue this_variable other_variables);
 
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
@@ -174,6 +180,18 @@ fun FindPlexilNode node_name ({name=name, node_type=node_type,
 
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
+(* PLEXIL NODE CONDITIONS *)
+(*--------------------------------------------------------------------*)
+(*--------------------------------------------------------------------*)
+fun SimpleAssignment_Condition {name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+               clock event_queue local_variables environment_variables = 
+      if ((GetEnvVariableValue "redRock" environment_variables) = "true") then
+          true
+      else false;
+
+(*--------------------------------------------------------------------*)
+(*--------------------------------------------------------------------*)
 (* Can Execute Plexil Node? *)
 (* Conditional expressions need to be generated for every node *)
 (*--------------------------------------------------------------------*)
@@ -183,7 +201,10 @@ fun CanExecute {name=name, node_type=node_type,
                clock event_queue local_variables environment_variables = 
 
   case name of
-   "SimpleAssignment" => true
+   "SimpleAssignment" => (SimpleAssignment_Condition {name=name, node_type=node_type, 
+                                state=state, parent=parent, assignments=assignments, 
+                                      commands=commands, outcome=outcome}
+                           clock event_queue local_variables environment_variables)
     | _ => false;
 
 fun CanExecuteAtleastOne [] clock 
