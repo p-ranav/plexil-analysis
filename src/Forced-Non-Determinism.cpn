@@ -304,7 +304,7 @@
       <pageattr name="Plexil_Analysis"/>
       <place id="ID1412337104">
         <posattr x="0.000000"
-                 y="620.000000"/>
+                 y="630.000000"/>
         <fillattr colour="White"
                   pattern=""
                   filled="false"/>
@@ -316,18 +316,18 @@
         <text>Events</text>
         <ellipse w="148.000000"
                  h="90.000000"/>
-        <token x="-88.000000"
-               y="49.000000"/>
-        <marking x="18.000000"
-                 y="12.000000"
+        <token x="-77.000000"
+               y="47.000000"/>
+        <marking x="-1.000000"
+                 y="0.000000"
                  hidden="false">
-          <snap snap_id="0"
-                anchor.horizontal="3"
+          <snap snap_id="2"
+                anchor.horizontal="1"
                 anchor.vertical="2"/>
         </marking>
         <type id="ID1412337761">
           <posattr x="86.000000"
-                   y="578.000000"/>
+                   y="588.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -340,8 +340,8 @@
                 version="4.0.1">event_list</text>
         </type>
         <initmark id="ID1412337106">
-          <posattr x="148.000000"
-                   y="748.000000"/>
+          <posattr x="145.000000"
+                   y="778.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -459,8 +459,8 @@
         </initmark>
       </place>
       <place id="ID1412419624">
-        <posattr x="336.000000"
-                 y="457.464000"/>
+        <posattr x="352.000000"
+                 y="457.000000"/>
         <fillattr colour="White"
                   pattern=""
                   filled="false"/>
@@ -482,7 +482,7 @@
                 anchor.vertical="2"/>
         </marking>
         <type id="ID1412419625">
-          <posattr x="438.000000"
+          <posattr x="454.000000"
                    y="417.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -496,8 +496,8 @@
                 version="4.0.1">variable_list</text>
         </type>
         <initmark id="ID1412419626">
-          <posattr x="586.500000"
-                   y="488.000000"/>
+          <posattr x="602.500000"
+                   y="487.536000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -550,7 +550,7 @@
         </type>
         <initmark id="ID1412514573">
           <posattr x="223.500000"
-                   y="-335.000000"/>
+                   y="-363.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -578,9 +578,13 @@
      {name=&quot;StopForTarget&quot;, node_type=&quot;List&quot;, state=&quot;Waiting&quot;, parent=&quot;DriveToTarget&quot;, 
                                   assignments=[], 
                                   commands=[], outcome=&quot;&quot;}, 
+
+
      {name=&quot;StopOnTarget&quot;, node_type=&quot;Command&quot;, state=&quot;Waiting&quot;, parent=&quot;StopForTarget&quot;, 
                                   assignments=[], 
                                   commands=[{name=&quot;rover_stop()&quot;, WCET=16}], outcome=&quot;&quot;},
+
+
      {name=&quot;SetDriveFlag&quot;, node_type=&quot;Assignment&quot;, state=&quot;Waiting&quot;, parent=&quot;StopForTarget&quot;, 
                                   assignments=[{name=&quot;drive_done&quot;, new_value=&quot;true&quot;}], 
                                   commands=[], outcome=&quot;&quot;},
@@ -686,8 +690,8 @@ Event</text>
                 version="4.0.1">event</text>
         </type>
         <initmark id="ID1412900003">
-          <posattr x="-910.500000"
-                   y="868.000000"/>
+          <posattr x="-924.500000"
+                   y="887.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -699,8 +703,10 @@ Event</text>
           <text tool="CPN Tools"
                 version="4.0.1">1`{name=&quot;Target_Detected&quot;, min_iat=50, max_iat=90, 
     updates=[{name=&quot;target_in_view&quot;, new_value=&quot;true&quot;}], firing_time=50}++
+
 1`{name=&quot;Target_Detected&quot;, min_iat=50, max_iat=90, 
     updates=[{name=&quot;target_in_view&quot;, new_value=&quot;true&quot;}], firing_time=52}++
+
 1`{name=&quot;Target_Detected&quot;, min_iat=50, max_iat=90, 
     updates=[{name=&quot;target_in_view&quot;, new_value=&quot;true&quot;}], firing_time=54}++
 1`{name=&quot;Target_Detected&quot;, min_iat=50, max_iat=90, 
@@ -867,8 +873,8 @@ Event</text>
         <binding x="7.200000"
                  y="-3.000000"/>
         <cond id="ID1412475667">
-          <posattr x="126.000000"
-                   y="121.000000"/>
+          <posattr x="121.000000"
+                   y="119.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1256,7 +1262,7 @@ Event</text>
         </bendpoint>
         <annot id="ID1412437139">
           <posattr x="166.500000"
-                   y="539.000000"/>
+                   y="542.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1287,7 +1293,7 @@ Event</text>
         <transend idref="ID1412338273"/>
         <placeend idref="ID1412419624"/>
         <annot id="ID1412443925">
-          <posattr x="145.000000"
+          <posattr x="152.000000"
                    y="468.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1332,7 +1338,7 @@ Event</text>
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412455734">
-          <posattr x="171.000000"
+          <posattr x="172.000000"
                    y="413.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -1767,7 +1773,7 @@ vl)</text>
         </bendpoint>
         <annot id="ID1412601006">
           <posattr x="-150.000000"
-                   y="110.000000"/>
+                   y="98.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1846,7 +1852,7 @@ vl)</text>
         <bendpoint id="ID1412913307"
                    serial="1">
           <posattr x="-168.000000"
-                   y="606.464000"/>
+                   y="606.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1922,8 +1928,8 @@ vl)</text>
         <placeend idref="ID1412337104"/>
         <bendpoint id="ID1412912218"
                    serial="1">
-          <posattr x="-154.680000"
-                   y="640.464000"/>
+          <posattr x="-154.000000"
+                   y="640.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -1934,7 +1940,7 @@ vl)</text>
                     bold="false"/>
         </bendpoint>
         <annot id="ID1412912217">
-          <posattr x="-168.000000"
+          <posattr x="-167.000000"
                    y="651.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
@@ -2041,9 +2047,9 @@ vl)</text>
       <constraints/>
       <hguideline id="ID1412687493"
                   y="-457.464000">
-        <guideline_elm idref="ID1412419624"/>
         <guideline_elm idref="ID1412338273"/>
         <guideline_elm idref="ID1412352384"/>
+        <guideline_elm idref="ID1412419624"/>
       </hguideline>
       <vguideline id="ID1412671419"
                   x="-369.680000">
@@ -2141,23 +2147,6 @@ DriveToTarget:
         <label/>
         <text>1`[{name=&quot;Target_Detected&quot;, min_iat=50, max_iat=90, updates=[{name=&quot;target_in_view&quot;, new_value=&quot;true&quot;}], firing_time=0}]</text>
       </Aux>
-      <Aux id="ID1412864880">
-        <posattr x="966.000000"
-                 y="-144.536000"/>
-        <fillattr colour="White"
-                  pattern=""
-                  filled="false"/>
-        <lineattr colour="Black"
-                  thick="1"
-                  type="Solid"/>
-        <textattr colour="Black"
-                  bold="false"/>
-        <label/>
-        <text>val min_iat = 10;
-val max_iat = 10;
-
-0 + )</text>
-      </Aux>
       <Aux id="ID1412880574">
         <posattr x="1204.000000"
                  y="336.000000"/>
@@ -2187,8 +2176,8 @@ val max_iat = 10;
         <text>(Real.floor (uniform((Real.fromInt 50), (Real.fromInt 90))))</text>
       </Aux>
       <Aux id="ID1412885791">
-        <posattr x="-84.000000"
-                 y="864.000000"/>
+        <posattr x="-56.000000"
+                 y="953.000000"/>
         <fillattr colour="White"
                   pattern=""
                   filled="false"/>
@@ -2201,8 +2190,8 @@ val max_iat = 10;
         <text>(Real.floor (uniform((Real.fromInt 50), (Real.fromInt 90))))</text>
       </Aux>
       <Aux id="ID1412921238">
-        <posattr x="1206.000000"
-                 y="294.000000"/>
+        <posattr x="1198.000000"
+                 y="281.000000"/>
         <fillattr colour="White"
                   pattern=""
                   filled="false"/>
@@ -2493,14 +2482,14 @@ val max_iat = 10;
     </options>
     <binders>
       <cpnbinder id="ID1412333388"
-                 x="228"
-                 y="48"
+                 x="144"
+                 y="13"
                  width="1699"
                  height="1050">
         <sheets>
           <cpnsheet id="ID1412333377"
-                    panx="-1095.320000"
-                    pany="323.464000"
+                    panx="448.680000"
+                    pany="-511.536000"
                     zoom="1.000000"
                     instance="ID2149">
             <zorder>
@@ -2589,7 +2578,9 @@ val max_iat = 10;
           <IndexNode expanded="false"/>
         </IndexNode>
       </IndexNode>
-      <IndexNode expanded="false"/>
+      <IndexNode expanded="false">
+        <IndexNode expanded="false"/>
+      </IndexNode>
       <IndexNode expanded="true">
         <IndexNode expanded="false">
           <IndexNode expanded="true"/>
