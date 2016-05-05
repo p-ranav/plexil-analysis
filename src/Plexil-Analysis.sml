@@ -301,6 +301,40 @@ fun CanExecuteAtleastOne [] all_nodes clock
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
 
+fun ExecuteThisNode {name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+    all_nodes clock event_queue local_variables environment_variables = 
+
+    case state of
+      "Waiting" => {name=name, node_type=node_type, 
+                    state="Executing", parent=parent, assignments=assignments, 
+                    commands=commands, outcome=outcome}
+
+    | "Executing" => {name=name, node_type=node_type, 
+                    state="Iteration_Ended", parent=parent, assignments=assignments, 
+                    commands=commands, outcome=outcome}
+    | _ => {name=name, node_type=node_type, 
+            state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome};
+
+fun ExecutePlexilNodes [] all_nodes clock event_queue local_variables environment_variables = []
+  | ExecutePlexilNodes ({name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+      ::other_nodes) all_nodes clock event_queue local_variables environment_variables = 
+
+  if (CanExecute {name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}
+    all_nodes clock event_queue local_variables environment_variables) then 
+
+      (ExecuteThisNode {name=name, node_type=node_type, 
+    state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}  
+      all_nodes clock event_queue local_variables environment_variables)::
+      (ExecutePlexilNodes other_nodes all_nodes clock event_queue local_variables environment_variables)
+          
+  else
+      {name=name, node_type=node_type, 
+      state=state, parent=parent, assignments=assignments, commands=commands, outcome=outcome}::
+      (ExecutePlexilNodes other_nodes all_nodes clock event_queue local_variables environment_variables); 
+
 (*--------------------------------------------------------------------*)
 (*--------------------------------------------------------------------*)
 (* Execute Guard *)
