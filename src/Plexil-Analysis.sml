@@ -245,7 +245,7 @@ fun CanExecute {name=name, node_type=node_type,
     | "Drive" => true andalso 
                 (CanExecute (FindPlexilNode parent all_nodes) all_nodes clock 
                             event_queue local_variables environment_variables)
-    | "StopForTimeout" => (clock >= 10) andalso 
+    | "StopForTimeout" => (clock >= 200) andalso 
                           (CanExecute (FindPlexilNode parent all_nodes) all_nodes clock 
                             event_queue local_variables environment_variables)
     | "StopOnTimeout" => (CanExecute (FindPlexilNode parent all_nodes) all_nodes clock 
