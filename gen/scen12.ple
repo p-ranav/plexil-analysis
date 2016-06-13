@@ -1,0 +1,89 @@
+// Generated file -- do not edit!
+
+
+
+
+LibraryAction Fly (In Integer Time, In Boolean Continue, In Boolean LostComm);
+
+
+LibraryAction Clock (InOut Integer Time, In Boolean Continue);
+
+
+Command fp_altitude (Integer);
+Command fp_append_waypoint (String);
+LibraryAction SharedFlightPlan();
+
+
+Command append_altitude (String qualifier, Integer altitude);
+Command append_waypoint (String waypoint);
+Command append_rv (String waypoint);
+Command append_efc_time_climb (Integer time, Integer altitude);
+Command append_efc_time_descend (Integer time, Integer altitude);
+Command append_efc_waypoint_climb (String waypoint, Integer altitude);
+Command append_efc_wayapoint_descend (String waypoint, Integer altitude);
+Command append_fly_as_filed ();
+Command clearance_limit (String waypoint);
+
+
+Command turn (Integer angle);
+Command right_turn (Integer angle);
+Command left_turn (Integer angle);
+Command climb (Integer altitude_feet);
+Command descend (Integer altitude_feet);
+Command direct (String waypoint);
+
+
+Command reach_waypoint (String);
+
+
+Command pprint (...);
+
+
+
+scen12:
+{
+  Integer Time = 0;
+  Boolean Continue = true;
+  Boolean LostComm = false;
+
+  Init:
+  {
+    LibraryCall SharedFlightPlan();
+    append_altitude ("Climb", 6000);
+    append_rv ("SCK");
+    append_waypoint ("SJC");
+    clearance_limit ("SJC");
+  }
+
+  Events: Concurrence
+  {
+    LibraryCall Clock (Time = Time, Continue = Continue);
+    LibraryCall Fly (Time = Time, Continue = Continue, LostComm = LostComm);
+
+    E1:
+    {
+      Start Time == 4;
+      right_turn (30);
+    }
+    E2:
+    {
+      Start Time == 8;
+      left_turn (20);
+    }
+    E3:
+    {
+      Start Time == 10;
+      climb(7000);
+    }
+    E4:
+    {
+      Start Time == 16;
+      direct ("SCK");
+    }
+    E5:
+    {
+      Start Time == 30;
+      Continue = false;
+    }
+  }
+}
