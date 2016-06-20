@@ -1,0 +1,33 @@
+Boolean Lookup RadarVectored;
+Boolean Lookup ExpectingLateralClearance;
+Command flyDirectToVectoredWaypoint();
+Command heedExpectedClearance();
+Command flyFlightPlan();
+Command pprint (...);
+
+AdjustRouteForLostComm:
+{
+  // In priority order, select a route:
+
+  // 1. As assigned in the last ATC clearance.
+
+  if (!Lookup (RadarVectored) &&
+      !Lookup (ExpectingLateralClearance)) {
+    // do nothing, since we are by definition flying the latest clearance
+  }
+
+  // 2. If being radar vectored, fly direct to the specified waypoint.
+
+  elseif (Lookup (RadarVectored)) flyDirectToVectoredWaypoint();
+
+  // 3. If expecting further clearance, proceed as if the specified
+  // clearance has arrived.
+
+  elseif (Lookup (ExpectingLateralClearance)) heedExpectedClearance();      
+
+  // 4. As filed in the flight plan
+
+  else flyFlightPlan();
+  endif
+}
+

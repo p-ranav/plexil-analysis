@@ -1,0 +1,19 @@
+// A simple integral clock.
+Command update_time (Integer);
+Command pprint (...);
+
+Clock:
+{
+  InOut Integer Time;
+  In Boolean Continue;
+
+  Exit !Continue;
+  Repeat true;
+
+  Wait 0.01, 0.01;  // seconds using native time under Posix
+  Time = Time + 1;
+  // For debugging
+  //  pprint ("  Clock: time = ", Time);
+  update_time (Time);
+}
+

@@ -1,0 +1,12 @@
+This directory (aos/apps/plexil/fsw/mission_inc/procs) contains PLEXIL plans
+implementing the AOS flight procedures.
+
+It can be built two ways:
+
+1. Development configuration (Makefile-based, 64-bit, uses Sourceforge PLEXIL):
+
+   To compile the plans, type 'make'
+
+2. CFS configutation: type 'make' at the top level 'aos' directory.
+
+
