@@ -184,6 +184,8 @@
    </GlobalDeclarations>
    <Node NodeType="NodeList" epx="Sequence" LineNo="45" ColNo="2">
       <NodeId>scen12</NodeId>
+      <GuardWCET>1</GuardWCET>
+      <ActionWCET>2</ActionWCET>
       <VariableDeclarations>
          <DeclareVariable LineNo="44" ColNo="2">
             <Name>Time</Name>
@@ -245,6 +247,8 @@
          <NodeList>
             <Node NodeType="NodeList" epx="Sequence" LineNo="51" ColNo="4">
                <NodeId>Init</NodeId>
+	       <GuardWCET>1</GuardWCET>
+	       <ActionWCET>2</ActionWCET>
                <InvariantCondition>
                   <NOT>
                      <OR>
@@ -325,6 +329,8 @@
                   <NodeList>
                      <Node NodeType="LibraryNodeCall">
                         <NodeId>LibraryCall__0</NodeId>
+			<GuardWCET>1</GuardWCET>
+			<ActionWCET>2</ActionWCET>
                         <NodeBody>
                            <LibraryNodeCall>
                               <NodeId>SharedFlightPlan</NodeId>
@@ -333,6 +339,8 @@
                      </Node>
                      <Node NodeType="Command" LineNo="51" ColNo="4">
                         <NodeId>COMMAND__1</NodeId>
+			<GuardWCET>1</GuardWCET>
+			<ActionWCET>2</ActionWCET>
                         <StartCondition>
                            <EQInternal>
                               <NodeStateVariable>
@@ -355,6 +363,8 @@
                      </Node>
                      <Node NodeType="Command" LineNo="52" ColNo="4">
                         <NodeId>COMMAND__2</NodeId>
+			<GuardWCET>1</GuardWCET>
+			<ActionWCET>2</ActionWCET>
                         <StartCondition>
                            <EQInternal>
                               <NodeStateVariable>
@@ -376,6 +386,8 @@
                      </Node>
                      <Node NodeType="Command" LineNo="53" ColNo="4">
                         <NodeId>COMMAND__3</NodeId>
+			<GuardWCET>1</GuardWCET>
+			<ActionWCET>2</ActionWCET>
                         <StartCondition>
                            <EQInternal>
                               <NodeStateVariable>
@@ -397,6 +409,8 @@
                      </Node>
                      <Node NodeType="Command" LineNo="54" ColNo="4">
                         <NodeId>COMMAND__4</NodeId>
+			<GuardWCET>1</GuardWCET>
+			<ActionWCET>2</ActionWCET>
                         <StartCondition>
                            <EQInternal>
                               <NodeStateVariable>
@@ -421,6 +435,8 @@
             </Node>
             <Node NodeType="NodeList" epx="Concurrence" LineNo="58" ColNo="10">
                <NodeId>Events</NodeId>
+	       <GuardWCET>1</GuardWCET>
+	       <ActionWCET>2</ActionWCET>
                <StartCondition>
                   <EQInternal>
                      <NodeStateVariable>
@@ -433,6 +449,8 @@
                   <NodeList>
                      <Node NodeType="LibraryNodeCall">
                         <NodeId>LibraryCall__5</NodeId>
+			<GuardWCET>1</GuardWCET>
+			<ActionWCET>2</ActionWCET>
                         <NodeBody>
                            <LibraryNodeCall>
                               <NodeId>Clock</NodeId>
@@ -449,6 +467,8 @@
                      </Node>
                      <Node NodeType="LibraryNodeCall">
                         <NodeId>LibraryCall__6</NodeId>
+			<GuardWCET>1</GuardWCET>
+			<ActionWCET>2</ActionWCET>
                         <NodeBody>
                            <LibraryNodeCall>
                               <NodeId>Fly</NodeId>
@@ -469,6 +489,8 @@
                      </Node>
                      <Node NodeType="Command" LineNo="65" ColNo="6">
                         <NodeId>E1</NodeId>
+			<GuardWCET>1</GuardWCET>
+			<ActionWCET>2</ActionWCET>
                         <StartCondition>
                            <EQNumeric>
                               <IntegerVariable>Time</IntegerVariable>
@@ -488,6 +510,8 @@
                      </Node>
                      <Node NodeType="Command" LineNo="70" ColNo="6">
                         <NodeId>E2</NodeId>
+			<GuardWCET>1</GuardWCET>
+			<ActionWCET>2</ActionWCET>
                         <StartCondition>
                            <EQNumeric>
                               <IntegerVariable>Time</IntegerVariable>
@@ -507,6 +531,8 @@
                      </Node>
                      <Node NodeType="Command" LineNo="75" ColNo="6">
                         <NodeId>E3</NodeId>
+			<GuardWCET>1</GuardWCET>
+			<ActionWCET>2</ActionWCET>
                         <StartCondition>
                            <EQNumeric>
                               <IntegerVariable>Time</IntegerVariable>
@@ -526,6 +552,8 @@
                      </Node>
                      <Node NodeType="Command" LineNo="80" ColNo="6">
                         <NodeId>E4</NodeId>
+			<GuardWCET>1</GuardWCET>
+			<ActionWCET>2</ActionWCET>
                         <StartCondition>
                            <EQNumeric>
                               <IntegerVariable>Time</IntegerVariable>
@@ -545,6 +573,8 @@
                      </Node>
                      <Node NodeType="Assignment" LineNo="86" ColNo="6">
                         <NodeId>E5</NodeId>
+			<GuardWCET>1</GuardWCET>
+			<ActionWCET>2</ActionWCET>
                         <StartCondition>
                            <EQNumeric>
                               <IntegerVariable>Time</IntegerVariable>
