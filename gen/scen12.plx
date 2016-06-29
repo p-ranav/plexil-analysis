@@ -184,8 +184,8 @@
    </GlobalDeclarations>
    <Node NodeType="NodeList" epx="Sequence" LineNo="45" ColNo="2">
       <NodeId>scen12</NodeId>
-      <GuardWCET>1</GuardWCET>
-      <ActionWCET>2</ActionWCET>
+      <GuardWCET>300</GuardWCET>
+      <ActionWCET>725</ActionWCET>
       <VariableDeclarations>
          <DeclareVariable LineNo="44" ColNo="2">
             <Name>Time</Name>
@@ -247,8 +247,8 @@
          <NodeList>
             <Node NodeType="NodeList" epx="Sequence" LineNo="51" ColNo="4">
                <NodeId>Init</NodeId>
-	       <GuardWCET>1</GuardWCET>
-	       <ActionWCET>2</ActionWCET>
+	       <GuardWCET>547</GuardWCET>
+	       <ActionWCET>1146</ActionWCET>
                <InvariantCondition>
                   <NOT>
                      <OR>
@@ -435,8 +435,8 @@
             </Node>
             <Node NodeType="NodeList" epx="Concurrence" LineNo="58" ColNo="10">
                <NodeId>Events</NodeId>
-	       <GuardWCET>1</GuardWCET>
-	       <ActionWCET>2</ActionWCET>
+	       <GuardWCET>2405</GuardWCET>
+	       <ActionWCET>873</ActionWCET>
                <StartCondition>
                   <EQInternal>
                      <NodeStateVariable>

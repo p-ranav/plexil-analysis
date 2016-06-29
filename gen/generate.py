@@ -37,7 +37,7 @@ class PlexilNode():
 
 plexil_nodes = []
 
-def parse_plan(node, indent=""):
+def parse_plan(node, indent="", include_leaf=False):
     global plexil_nodes
     epx = ""
     guard_wcet = 0
@@ -55,7 +55,11 @@ def parse_plan(node, indent=""):
         num_children = len(node['NodeBody']['NodeList']['Node'])
         if num_children > 0:
             for child_node in node['NodeBody']['NodeList']['Node']:
-                parse_plan(child_node, indent + "  ")
+                parse_plan(child_node, indent + "  ", include_leaf)
+    else:
+        if include_leaf == True:
+            new_node = PlexilNode(node['NodeId'], node['@NodeType'], guard_wcet, action_wcet, "false")
+            plexil_nodes.append(new_node)            
 
 def generate_cpn():
     node_token = "1`["
@@ -75,20 +79,21 @@ def generate_cpn():
     with open(os.path.join(working_dir, "Plexil-Analysis.cpn"), 'w') as temp_file:
         temp_file.write(cpn_text)
 
-# {name="DriveToTarget", kind="List", state="WAITING", parent="NULL", guard_wcet=5, action_wcet=0, repeat=false, start_time=0, end_time=0}, 
-
 def main():
 
     parser = argparse.ArgumentParser(description=\
                                      'functionality: Generate Plexil Analysis CPN', 
                                      formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('--plx', nargs='?', default=None, help='Name of plx file to process')
+    parser.add_argument('--leaf', nargs='?', default=False, help='Consider all leaf Nodes')
     args = vars(parser.parse_args())
+    if args['leaf'] == 'True':
+        args['leaf'] = True
 
     if (args['plx'] != None):
         with open(args['plx'], 'r') as fd:
             plan = xmltodict.parse(fd.read())
-            parse_plan(plan['PlexilPlan']['Node'])
+            parse_plan(plan['PlexilPlan']['Node'], "", args['leaf'])
             generate_cpn()
     else:
         print "Usage: python generate.py <.plx file>"
