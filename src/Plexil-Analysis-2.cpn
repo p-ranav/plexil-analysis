@@ -246,7 +246,7 @@
                y="0.000000"/>
         <marking x="-20.600000"
                  y="-30.400000"
-                 hidden="false">
+                 hidden="true">
           <snap snap_id="0"
                 anchor.horizontal="2"
                 anchor.vertical="1"/>
@@ -266,8 +266,8 @@
                 version="4.0.1">plexil_nodes</text>
         </type>
         <initmark id="ID1412323926">
-          <posattr x="-255.000000"
-                   y="416.000000"/>
+          <posattr x="-412.000000"
+                   y="411.000000"/>
           <fillattr colour="White"
                     pattern="Solid"
                     filled="false"/>
@@ -278,9 +278,9 @@
                     bold="false"/>
           <text tool="CPN Tools"
                 version="4.0.1">(* PLEXIL NODE INITIAL MARKING *)
-1`[{name=&quot;DriveToTarget&quot;, kind=&quot;List&quot;, state=&quot;WAITING&quot;, parent=&quot;NULL&quot;, guard_wcet=5, action_wcet=0, repeat=false, start_time=0, end_time=0}, 
-     {name=&quot;Drive&quot;, kind=&quot;Command&quot;, state=&quot;WAITING&quot;, parent=&quot;Drive&quot;, guard_wcet=0, action_wcet=1, repeat=false, start_time=0, end_time=0},
-     {name=&quot;StopForTimeout&quot;, kind=&quot;List&quot;, state=&quot;WAITING&quot;, parent=&quot;DriveToTarget&quot;, guard_wcet=0, action_wcet=1, repeat=false, start_time=0, end_time=0}]</text>
+1`[{name=&quot;DriveToTarget&quot;, kind=&quot;List&quot;, state=&quot;WAITING&quot;, parent=&quot;NULL&quot;, guard_wcet=2405, action_wcet=873, repeat=false, start_time=0, end_time=0}, 
+     {name=&quot;Drive&quot;, kind=&quot;Command&quot;, state=&quot;WAITING&quot;, parent=&quot;Drive&quot;, guard_wcet=547, action_wcet=1146, repeat=false, start_time=0, end_time=0},
+     {name=&quot;StopForTimeout&quot;, kind=&quot;List&quot;, state=&quot;WAITING&quot;, parent=&quot;DriveToTarget&quot;, guard_wcet=300, action_wcet=725, repeat=false, start_time=0, end_time=0}]</text>
         </initmark>
       </place>
       <place id="ID1412325569">
@@ -1339,8 +1339,8 @@ Guard</text>
       </arc>
       <constraints/>
       <Aux id="ID1412382598">
-        <posattr x="-546.000000"
-                 y="-294.000000"/>
+        <posattr x="-744.000000"
+                 y="-221.000000"/>
         <fillattr colour="White"
                   pattern=""
                   filled="false"/>
@@ -1350,7 +1350,39 @@ Guard</text>
         <textattr colour="Black"
                   bold="false"/>
         <label/>
-        <text>NoOfNodes()</text>
+        <text>(* EXAMPLE QUERY *)
+
+val num_nodes = NoOfNodes();
+val finished_nodes = (hd (Mark.Analysis_Model&apos;FINISHED 1 num_nodes));
+
+fun FindET [] this_node = 0 
+    | FindET ({name=name, kind=kind, state=state, parent=parent, 
+                         guard_wcet=guard_wcet, action_wcet=action_wcet, repeat=repeat,
+                         start_time=start_time, end_time=end_time}::other_nodes) this_node = 
+          if (name = this_node) then 
+               (end_time - start_time)
+          else
+               (FindET other_nodes this_node);
+
+val ET_List = 
+          SearchNodes (
+              EntireGraph,
+              fn n =&gt; ((hd (Mark.Analysis_Model&apos;FINISHED 1 n)) &lt;&gt; []),
+              NoLimit,
+              fn n =&gt; (FindET (hd (Mark.Analysis_Model&apos;FINISHED 1 n)) &quot;StopForTimeout&quot;),
+              [],
+              op ::); 
+
+(* Find minimum integer in a list of integers *)
+fun FindMaximum [] = 0
+  | FindMaximum [number] = number
+  | FindMaximum (number::other_numbers) = 
+  if (number &gt; (FindMaximum other_numbers)) then 
+     number
+  else
+    (FindMaximum other_numbers); 
+
+val WCET = (FindMaximum ET_List);</text>
       </Aux>
     </page>
     <instances>
@@ -1378,12 +1410,7 @@ Guard</text>
           <text>&lt;same as model&gt;</text>
         </value>
       </option>
-      <option name="extensions.10002.enable">
-        <value>
-          <boolean>true</boolean>
-        </value>
-      </option>
-      <option name="extensions.10001.enable">
+      <option name="extensions.10003.enable">
         <value>
           <boolean>true</boolean>
         </value>
@@ -1393,12 +1420,17 @@ Guard</text>
           <boolean>true</boolean>
         </value>
       </option>
+      <option name="extensions.10002.enable">
+        <value>
+          <boolean>true</boolean>
+        </value>
+      </option>
       <option name="extensions.10005.enable">
         <value>
           <boolean>true</boolean>
         </value>
       </option>
-      <option name="extensions.10003.enable">
+      <option name="extensions.10001.enable">
         <value>
           <boolean>true</boolean>
         </value>
@@ -1607,8 +1639,8 @@ Guard</text>
                  height="1067">
         <sheets>
           <cpnsheet id="ID2215"
-                    panx="344.750000"
-                    pany="65.500000"
+                    panx="408.750000"
+                    pany="36.500000"
                     zoom="1.250000"
                     instance="ID2149">
             <zorder>
@@ -1687,9 +1719,7 @@ Guard</text>
           <IndexNode expanded="false"/>
         </IndexNode>
       </IndexNode>
-      <IndexNode expanded="false">
-        <IndexNode expanded="false"/>
-      </IndexNode>
+      <IndexNode expanded="false"/>
       <IndexNode expanded="true">
         <IndexNode expanded="false">
           <IndexNode expanded="true"/>
