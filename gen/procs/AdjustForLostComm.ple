@@ -1,8 +1,0 @@
-LibraryAction AdjustRouteForLostComm;
-LibraryAction AdjustAltitudeForLostComm;
-
-AdjustForLostComm:
-{
-  LibraryCall AdjustRouteForLostComm();
-  LibraryCall AdjustAltitudeForLostComm();    
-}
